@@ -1,15 +1,19 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        int n = nums.length;
-        for(int i=0 ; i<n ; i++){
-            int count = 0;
-            for(int j=0 ; j<n ; j++){
-                if(nums[i] == nums[j]){
-                    count++;
-                }
-            }
-            if(count == 1){
-                return nums[i];
+       HashMap<Integer , Integer>freq = new HashMap<>();
+       int n = nums.length;
+       for(int i=0 ; i<n ;i++){
+           if(!freq.containsKey(nums[i]) ){
+              freq.put(nums[i] , 1);
+           }else{
+             freq.put(nums[i] , freq.get(nums[i]) + 1);
+           }
+        }
+
+        for(int key : freq.keySet() ){
+            int val = freq.get(key);
+            if(val == 1){
+                return key;
             }
         }
         return -1;
